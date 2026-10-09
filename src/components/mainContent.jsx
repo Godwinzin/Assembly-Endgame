@@ -1,19 +1,19 @@
-import { useState } from "react"
+import { useState,useMemo } from "react"
 import { languages, getRandomWord } from "../languages"
 import Status from "./status"
 import clsx from "clsx"
+import { getFarewellMessage } from "../farewells"
 
 export default function MainContent() {
     const [word, setWord] = useState(() => getRandomWord())
     const [guessedLetter, setGuessedletter] = useState([])
 
     const wrongGuessCount = guessedLetter.filter(
-        letter => !word.toLowerCase().includes(letter)
+        letter => !word.includes(letter)
     ).length
 
-    const remainingAttempts= 9 - wrongGuessCount
-
-    const maxAttempts = languages.length
+    const maxAttempts = languages.length-1
+    const remainingAttempts= maxAttempts - wrongGuessCount
     const isGameOver = wrongGuessCount >= maxAttempts
 
     const isGameWon = word
@@ -22,6 +22,15 @@ export default function MainContent() {
         .every(letter => guessedLetter.includes(letter))
 
     const isGameEnded = isGameWon || isGameOver
+    const lastEliminatedLanguage = wrongGuessCount > 0 
+        ? languages[wrongGuessCount - 1] 
+        : null
+    
+    const farewellMessage = useMemo(() => {
+    return lastEliminatedLanguage 
+        ? getFarewellMessage(lastEliminatedLanguage.name) 
+        : ""
+        }, [lastEliminatedLanguage])
 
     function addGuessedLetter(letter) {
         if (isGameEnded) return
@@ -41,7 +50,10 @@ export default function MainContent() {
         return (
             <div 
                 key={language.name} 
-                className={`language ${isLost ? "lost" : ""}`}
+               className={clsx("language",
+                 { 
+                    lost: isLost 
+                })}
                 style={{ 
                     color: language.color, 
                     backgroundColor: language.backgroundColor 
@@ -92,7 +104,7 @@ export default function MainContent() {
             <header>
                 <h1>Assembly:Endgame</h1>
                 <p>
-                    Guess the word within {maxAttempts} attempts to keep the program world safe from assembly
+                    Guess the word within {maxAttempts} attempts to keep the programming world safe from assembly
                 </p>
                 <p className="attempts">
                     Attempts Remaining: <span>{remainingAttempts}</span>
@@ -102,6 +114,7 @@ export default function MainContent() {
             <Status 
                 isGameWon={isGameWon} 
                 isGameOver={isGameOver} 
+                farewellMessage={farewellMessage}
             />
 
             <section className="languages">
@@ -116,9 +129,9 @@ export default function MainContent() {
                 {keyboardButtons}
             </section>
 
-            <button className="new-game-btn" onClick={startNewGame}>
+            {isGameEnded && <button className="new-game-btn" onClick={startNewGame}>
                 New Game
-            </button>
+            </button>}
         </main>
     )
 }

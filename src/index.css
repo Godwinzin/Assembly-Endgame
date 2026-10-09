@@ -53,11 +53,28 @@ header p {
     font-size: 0.85rem;
 }
 .status.won {
-    background-color: #10782E;
+    background-image: url("src/assets/fireworks.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
 }
 
 .status.lost {
     background-color: #BA2A2A;
+}
+.status.farewell {
+    background-color: #7A5EA7;
+    border: 1px dashed #A985DF;
+    color: #F9F4DA;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-style: italic;
+}
+.status.placeholder {
+    min-height: 50px; 
+    visibility: hidden; 
 }
 
 .languages {
@@ -164,8 +181,9 @@ header p {
 }
 
 .language.lost {
-    opacity: 0.2;
-    position: relative;
+  position: relative;
+  color: #777 !important;
+  background-color: #222 !important;
 }
 
 .language.lost::after {
@@ -182,7 +200,7 @@ header p {
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.5px;
-    color: #A1A1AA; /* Subtle gray text */
+    color: #A1A1AA;
     margin-top: 8px;
     margin-bottom: 12px;
     text-transform: uppercase;

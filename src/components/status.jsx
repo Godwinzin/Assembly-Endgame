@@ -1,4 +1,4 @@
-export default function Status({ isGameWon, isGameOver}) {
+export default function Status({ isGameWon, isGameOver,farewellMessage}) {
     if (isGameWon) {
         return (
             <section className="status won">
@@ -16,6 +16,13 @@ export default function Status({ isGameWon, isGameOver}) {
             </section>
         )
     }
+    if (farewellMessage) {
+        return (
+            <section className="status farewell">
+                <p>{farewellMessage}</p>
+            </section>
+        )
+    }
 
-    return null
+   return <section className="status placeholder" aria-hidden="true"></section>
 }
