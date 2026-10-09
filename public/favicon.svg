@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Background Container -->
+  <rect width="512" height="512" rx="96" fill="#1E1E1E"/>
+  <rect x="32" y="32" width="448" height="448" rx="64" fill="#2A2A2A"/>
+
+  <!-- Green Skull Icon -->
+  <g fill="#10B981">
+    <!-- Skull Main Structure -->
+    <path d="M256 96 C160 96 112 168 112 256 C112 320 144 360 184 384 L184 416 C184 424.8 191.2 432 200 432 L312 432 C320.8 432 328 424.8 328 416 L328 384 C368 360 400 320 400 256 C400 168 352 96 256 96 Z"/>
+  </g>
+
+  <!-- Cutouts (Eye sockets, Nose, Teeth slots) -->
+  <g fill="#2A2A2A">
+    <!-- Eyes -->
+    <ellipse cx="200" cy="248" rx="36" ry="44"/>
+    <ellipse cx="312" cy="248" rx="36" ry="44"/>
+
+    <!-- Nose -->
+    <path d="M256 296 L240 332 L272 332 Z"/>
+
+    <!-- Teeth gaps -->
+    <rect x="224" y="392" width="12" height="40" rx="6"/>
+    <rect x="250" y="392" width="12" height="40" rx="6"/>
+    <rect x="276" y="392" width="12" height="40" rx="6"/>
+  </g>
+</svg>
