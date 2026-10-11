@@ -1,32 +1,25 @@
-# Assembly: Endgame 
+# Assembly: Endgame
 
-**Assembly: Endgame** is a word-guessing game built with React. The mission is simple: guess the secret programming term letter-by-letter within 9 attempts to prevent the world from falling back to Assembly language!
-
----
+A high-stakes word guessing game built with React where you must save the programming world from being completely overtaken by Assembly!
 
 ## Features
 
-- **Dynamic Word Bank:** Randomly selects 6-letter (or shorter) programming & tech terms.
-- **Language Elimination:** Every wrong guess "kills" one of the 9 programming languages with a 💀 indicator.
-- **Visual Feedback:** 
-  - On-screen keyboard keys highlight **green** for correct guesses and **red** for incorrect ones.
-  - Interactive status banner displays win/loss states.
-- **Game State Protection:** Keyboard buttons disable automatically upon game completion or duplicate selection.
-- **Clean Codebase:** Leverages `clsx` for conditional CSS class management and modular components like `<Status />`.
-
----
+- **Interactive Word Guessing:** Test your vocabulary with a pool of tech-themed, six-letter words.
+- **Countdown Timer:** A built-in 30-second timer forces you to think fast under pressure. If time runs out, Assembly wins!
+- **Dynamic Doom Animation:** Experience a pulse-pounding double-flash red warning animation as the game reaches a critical game-over state.
+- **Language Elimination Board:** Watch programming languages (like HTML, CSS, JavaScript, and more) get eliminated with a skull marker one by one with every wrong guess—or all at once if you time out!
+- **Themed Farewell Messages:** Enjoy a massive collection of custom, tech-inspired elimination messages (from stack overflows to garbage collector jokes) every time a language goes down.
+- **Confetti Victory Celebration:** Celebrate your triumphs with a burst of confetti when you successfully guess the word.
 
 ## Tech Stack
 
-- **Framework:** React (Vite)
-- **Styling:** CSS3 (Flexbox/Grid, CSS Variables)
-- **Utilities:** [`clsx`](https://www.npmjs.com/package/clsx)
+- **React** (Component-based architecture, hooks like `useState`, `useEffect` and `useMemo`)
+- **CSS3** (Custom keyframe animations, responsive grid layouts, and clean UI styling)
+- **clsx** (For conditional class name management)
+- **canvas-confetti** (For celebratory victory effects)
 
----
+<!-- ## Getting Started
 
-<!-- ## 📦 Installation & Setup
-
-1. **Clone the repository:**
+1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/assembly-endgame.git](https://github.com/your-username/assembly-endgame.git)
-   cd assembly-endgame -->
+   git clone <your-repository-url> -->

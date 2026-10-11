@@ -1,12 +1,15 @@
-import { useState,useMemo } from "react"
+import { useState,useMemo,useEffect } from "react"
 import { languages, getRandomWord } from "../languages"
 import Status from "./status"
 import clsx from "clsx"
 import { getFarewellMessage } from "../farewells"
+import Confetti from "canvas-confetti"
+import Timer from "./Timer"
 
 export default function MainContent() {
     const [word, setWord] = useState(() => getRandomWord())
     const [guessedLetter, setGuessedletter] = useState([])
+    const [hasTimedOut, setHasTimedOut] = useState(false)
 
     const wrongGuessCount = guessedLetter.filter(
         letter => !word.includes(letter)
@@ -14,7 +17,7 @@ export default function MainContent() {
 
     const maxAttempts = languages.length-1
     const remainingAttempts= maxAttempts - wrongGuessCount
-    const isGameOver = wrongGuessCount >= maxAttempts
+    const isGameOver = wrongGuessCount >= maxAttempts || hasTimedOut
 
     const isGameWon = word
         .toLowerCase()
@@ -43,10 +46,11 @@ export default function MainContent() {
     function startNewGame() {
         setWord(getRandomWord())
         setGuessedletter([])
+        setHasTimedOut(false)
     }
 
     const lang = languages.map((language, index) => {
-        const isLost = index < wrongGuessCount
+        const isLost = index < wrongGuessCount||(hasTimedOut && language.name !== "Assembly")
         return (
             <div 
                 key={language.name} 
@@ -92,31 +96,58 @@ export default function MainContent() {
                 key={letter} 
                 className={className}
                 disabled={isGuessed || isGameEnded}
+                aria-disabled={isGuessed || isGameEnded}
+                aria-label={`Letter ${letter}`}
                 onClick={() => addGuessedLetter(letter)}
             >
                 {letter.toUpperCase()}
             </button>
         )
     })
+    //  Trigger confetti when isGameWon becomes true
+    useEffect(() => {
+        if (isGameWon) {
+            Confetti({
+                particleCount: 500,
+                spread: 160,
+                startVelocity:45,
+                // origin: { y: 0.6 }
+            })
+        }
+    }, [isGameWon])
 
     return (
-        <main>
+        <main className={clsx({ "game-over": isGameOver })}>
             <header>
                 <h1>Assembly:Endgame</h1>
                 <p>
                     Guess the word within {maxAttempts} attempts to keep the programming world safe from assembly
                 </p>
-                <p className="attempts">
-                    Attempts Remaining: <span>{remainingAttempts}</span>
-                </p>
+                <div className="game-stats">
+                    <p className="attempts">
+                        Attempts Remaining: <span>{remainingAttempts}</span>
+                    </p>
+                    {/* Added the Timer component here */}
+                    <Timer 
+                        isGameEnded={isGameEnded} 
+                        isRunning={guessedLetter.length > 0 && !isGameEnded} 
+                        startNewGameKey={word} 
+                        onTimeUp={() => {
+                            
+                            setHasTimedOut(true)
+                        }}
+                    />
+                </div>
             </header>
 
-            <Status 
+            <section className="status-section" aria-live="polite" role="status">
+                <Status 
                 isGameWon={isGameWon} 
                 isGameOver={isGameOver} 
                 farewellMessage={farewellMessage}
+                hasTimedOut={hasTimedOut}
             />
-
+            </section>
             <section className="languages">
                 {lang}
             </section>

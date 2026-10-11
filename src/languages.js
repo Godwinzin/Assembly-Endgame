@@ -11,8 +11,8 @@ export const languages = [
 ];
 
 export const words = [
-    "react", 
-    "state",
+    "reacts", // (adjusted to 6 letters to fit your layout)
+    "states",
     "effect",
     "object",
     "number",
@@ -21,7 +21,23 @@ export const words = [
     "margin",
     "render",
     "output",
-    "source"
+    "source",
+    "thirty",
+    "binary",
+    "coding",
+    "syntax",
+    "server",
+    "client",
+    "cookie",
+    "router",
+    "branch",
+    "commit",
+    "deploy",
+    "styles",
+    "script",
+    "import",
+    "export",
+    "plugin"
 ]
 
 export function getRandomWord() {
